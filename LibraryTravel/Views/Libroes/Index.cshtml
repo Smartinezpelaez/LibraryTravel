@@ -1,0 +1,58 @@
+﻿@model IEnumerable<LibraryTravel.BLL.DTOs.LibrosDTO>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EditorialesId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sipnosis)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NPaginas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EditorialesEntity)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EditorialesId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sipnosis)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NPaginas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EditorialesEntity.Id)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Isbn">Edit</a> |               
+                <a asp-action="Delete" asp-route-id="@item.Isbn">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

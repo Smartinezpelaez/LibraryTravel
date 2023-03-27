@@ -1,0 +1,42 @@
+using LibraryTravel.BLL.Repositories;
+using LibraryTravel.BLL.Repositories.Implements;
+using LibraryTravel.DAL.Models;
+using Microsoft.EntityFrameworkCore;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddDbContext<BrowserTravelContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LibraryTravelContext")));
+builder.Services.AddControllersWithViews();
+
+// Add AutoMapper Injection
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+//Repository
+builder.Services.AddScoped<IAutoresHasLibrosRepository, AutoresHasLibrosRepository>();
+builder.Services.AddScoped<IAutoresRepository, AutoresRepository>();
+builder.Services.AddScoped<IEditorialesRepository, EditorialesRepository>();
+builder.Services.AddScoped<ILibrosRepository, LibrosRepository>();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.Run();
